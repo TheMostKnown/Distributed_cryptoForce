@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+}
+
+h1 {
+ text-align: center;
+ margin-top: 50px;
+}
+
+p {
+ text-align: center;
+ margin-bottom: 30px;
+}
+
+label {
+ display: block;
+ margin-bottom: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+</style>
+
+<html>
+<head>
+ <title>Task list</title>
+</head>
+<body>
+ <h1>Here is the list of active tasks:</h1>
+ 	<center>
+ 		<table>
+ 		    <thead>
+ 		        <tr>
+ 		        	<th> ID </th>
+ 		            <th> Task type </th>
+ 		            <th> Value </th>
+ 		            <th> Result </th>
+ 		        </tr>
+ 		    </thead>
+ 		    <tbody>
+ 		        {% for task in tasks %}
+ 		        <tr>
+ 		        	<td> {{ task.id }} </td>
+ 		            <td> {{ task.task_type }} </td>
+ 		            <td> {{ task.task_value}} </td>
+ 		            <td> {{ task.task_result }} </td>
+ 		        </tr>
+ 		        {% endfor %}
+ 		    </tbody>
+ 		</table>
+
+ 	<p>
+ 	<a href="/tasklist"> Refresh the page </a>
+ 	<p>
+ 	<a href="/sheduler"> Go to the task sheduler </a>
+ 	</center>
+</body>
+</html>
