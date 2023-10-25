@@ -1,17 +1,18 @@
 import socket
 import threading
 import hashlib
-
+from os import getppid
+import json
 
 # Функция для обработки клиента
 def handle_client(client_socket, client_address, target_hash):
     global num_digits
     try:
         print(f"Новое подключение от клиента {client_address[0]}:{client_address[1]}")
-
+        print(getppid())
         # Отправляем хэш клиенту
-        client_socket.send(f"{target_hash},{num_digits}".encode('utf-8'))
-
+        #client_socket.send(f"{target_hash},{num_digits}".encode('utf-8'))
+        client_socket.send(json.dumps({'number': number, 'hash': my_hash}).encode('utf-8'))
         while True:
             # Получаем данные от клиента
             data = client_socket.recv(1024).decode('utf-8')
