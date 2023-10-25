@@ -12,11 +12,12 @@ def handle_client(client_socket, client_address, target_hash):
         print(getppid())
         # Отправляем хэш клиенту
         #client_socket.send(f"{target_hash},{num_digits}".encode('utf-8'))
-        client_socket.send(json.dumps({'number': number, 'hash': my_hash}).encode('utf-8'))
+        client_socket.send(json.dumps({'number': num_digits, 'hash': target_hash}).encode('utf-8'))
+        print(f"I'm before while loop, sending: {json.dumps({'number': num_digits, 'hash': target_hash}).encode('utf-8')}")
         while True:
             # Получаем данные от клиента
             data = client_socket.recv(1024).decode('utf-8')
-            print(data)
+            print(f"Got from client:{data}")
 
             if not data:
                 # Если клиент закрыл соединение, выходим из цикла
@@ -25,7 +26,8 @@ def handle_client(client_socket, client_address, target_hash):
             if data == "None":
                 # Если клиент прислал None, отправляем следующее число разрядов
                 num_digits += 1
-                client_socket.send(str(num_digits).encode('utf-8'))
+                client_socket.send(json.dumps({'number': num_digits, 'hash': target_hash}).encode('utf-8'))
+                print(f"Im in data == None, sending: {json.dumps({'number': num_digits, 'hash': target_hash}).encode('utf-8')}")
             else:
                 # Вычисляем хэш полученного числа и сравниваем с целевым хэшем
                 # hashed_data = hashlib.md5(data.encode('utf-8')).hexdigest()
@@ -53,9 +55,9 @@ def handle_client(client_socket, client_address, target_hash):
 
 if __name__ == '__main__':
     # Задаем адрес и порт сервера
-    server_address = ('localhost', 9090)
-    # target_hash = "c4ca4238a0b923820dcc509a6f75849b"  # Пример целевого хэша (MD5 хэш для строки "1")
-    target_hash = hashlib.md5(bytes(112345)).hexdigest()
+    server_address = ('10.1.1.209', 9090)
+    target_hash = "698d51a19d8a121ce581499d7b701668"  # Пример целевого хэша (MD5 хэш для строки "111")
+    #target_hash = hashlib.md5(bytes(11)).hexdigest()
     num_digits: int = 0
 
     try:
