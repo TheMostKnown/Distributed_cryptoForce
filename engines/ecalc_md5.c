@@ -1,7 +1,8 @@
 #include <openssl/evp.h>
 #include <stdio.h>
 #include <string.h>
-
+//#include <unistd.h>
+//#include <sys/types.h>
 
 void bytes2md5(const char *data, int len, char *md5buf) {
   // Based on https://www.openssl.org/docs/manmaster/man3/EVP_DigestUpdate.html
@@ -41,6 +42,7 @@ char * return_md5(int len, char *data) {
     bytes2md5(literals, strlen(literals), md5);
     if (!strcmp(data, md5)){
       strcpy(answer, literals);
+      //printf("The PID of C is: %i\n", getpid());
       return answer;
     }
     literals_index[0]++;
@@ -62,6 +64,9 @@ char * return_md5(int len, char *data) {
     }
   }
   strcpy(answer, "None");
+  //pid_t id;
+  //id = getpid();
+  //printf("The PID of C is: %i\n", getpid());
   return answer;
 }
 
